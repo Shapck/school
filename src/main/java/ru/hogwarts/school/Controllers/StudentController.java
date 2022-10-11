@@ -23,7 +23,7 @@ private final StudentService studentService;
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Student> getFaculty(@PathVariable Long id) {
+    public ResponseEntity<Student> getStudent(@PathVariable Long id) {
         Student studentFound = studentService.findStudent(id);
         if (studentFound == null) {
             return ResponseEntity.notFound().build();
@@ -32,7 +32,7 @@ private final StudentService studentService;
     }
 
     @PutMapping
-    public ResponseEntity<Student> editFaculty(@RequestBody Student student) {
+    public ResponseEntity<Student> editStudent(@RequestBody Student student) {
         Student studentFound = studentService.editStudent(student);
         if (studentFound == null) {
             return ResponseEntity.notFound().build();
@@ -41,16 +41,21 @@ private final StudentService studentService;
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Student> deleteFaculty(@PathVariable Long id) {
+    public ResponseEntity<Student> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping
-    public ResponseEntity<Collection<Student>> findStudents(@RequestParam(required = false) int age) {
-        if (age > 0) {
-            return ResponseEntity.ok(studentService.findByAge(age));
+    public ResponseEntity findStudents(@RequestParam (required = false) Integer age,
+                                       @RequestParam (required = false) Integer min,
+                                       @RequestParam (required = false) Integer max) {
+        if (min != null || max != null) {
+            return ResponseEntity.ok(studentService.findByAgeBetween(min, max));
         }
-        return ResponseEntity.ok(Collections.emptyList());
+        if (age != null) {
+            return ResponseEntity.ok(studentService.findByAge(age));
+            }
+            return ResponseEntity.ok(studentService.getAllStudents());
+        }
     }
-}

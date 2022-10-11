@@ -37,14 +37,11 @@ public class FacultyService {
         return facultyRepository.findById(id).get();
     }
 
-    public Collection<Faculty> findByColor(String color){
-        ArrayList<Faculty> result = new ArrayList<>();
-        for (Faculty faculty :facultyRepository.findAll()) {
-            if (Objects.equals(faculty.getColor(), color)) {
-                result.add(faculty);
-            }
-        }
-        return result;
+    public Collection<Faculty> findByColorOrName(String color, String name){
+        return facultyRepository.findFacultyByColorOrNameContainingIgnoreCase(color, name);
+    }
+    public Collection<Faculty> findAll() {
+        return facultyRepository.findAll();
     }
 
 }
