@@ -6,7 +6,6 @@ import ru.hogwarts.school.Model.Faculty;
 import ru.hogwarts.school.Model.Student;
 import ru.hogwarts.school.Srervice.FacultyService;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

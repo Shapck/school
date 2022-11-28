@@ -11,7 +11,7 @@ import java.util.Collection;
 @Service
 public class StudentService {
 
-    StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -33,7 +33,7 @@ public class StudentService {
     }
 
     public Student findStudent(long id) {
-        return studentRepository.findById(id).get();
+        return studentRepository.findById(id).orElse(null);
     }
 
     public Collection<Student> findByAge(Integer age) {
