@@ -11,7 +11,7 @@ import java.util.Collections;
 @RestController
 @RequestMapping("student")
 public class StudentController {
-private final StudentService studentService;
+    private final StudentService studentService;
 
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
@@ -47,15 +47,16 @@ private final StudentService studentService;
     }
 
     @GetMapping
-    public ResponseEntity findStudents(@RequestParam (required = false) Integer age,
-                                       @RequestParam (required = false) Integer min,
-                                       @RequestParam (required = false) Integer max) {
+    public ResponseEntity findStudents(@RequestParam(required = false) Integer age,
+                                       @RequestParam(required = false) Integer min,
+                                       @RequestParam(required = false) Integer max) {
         if (min != null || max != null) {
             return ResponseEntity.ok(studentService.findByAgeBetween(min, max));
         }
         if (age != null) {
             return ResponseEntity.ok(studentService.findByAge(age));
-            }
-            return ResponseEntity.ok(studentService.getAllStudents());
         }
+        return ResponseEntity.ok(studentService.getAllStudents());
     }
+}
+
